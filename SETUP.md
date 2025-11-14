@@ -29,9 +29,13 @@ mix deps.get
 # Create the database
 mix ecto.create
 
-# Run migrations
+# Run migrations (includes Oban tables)
 mix ecto.migrate
 ```
+
+**Note:** The migrations include:
+- Application tables: `messages`, `receipts`, `inbox`
+- Oban tables: `oban_jobs`, `oban_peers` (for job processing)
 
 ### 4. Run the Applications
 
