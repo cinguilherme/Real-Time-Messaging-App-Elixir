@@ -18,6 +18,8 @@ defmodule MessagingApi.Router do
     pipe_through :api
 
     post "/messages", MessageController, :create
+    get "/conversations/:conversation_id/messages", MessageController, :list
     post "/messages/:id/read", MessageController, :mark_read
+    post "/messages/:id/deliver", MessageController, :mark_delivered
   end
 end
