@@ -36,6 +36,33 @@ Architecture Notes:
 
 ⸻
 
+Feature Configuration
+
+This system supports flexible feature flags that control which features are enabled and how they're configured. All features can be toggled via a YAML configuration file.
+
+Configuration File
+	•	Default: config/features.yaml
+	•	Override via environment variable: FEATURES_CONFIG=/path/to/features.yaml
+	•	See docs/FEATURE_FLAGS.md for detailed documentation
+
+Available Configurations
+	•	features.yaml - Full featured (default)
+	•	features.minimal.yaml - Core messaging only, no optional features
+	•	features.standard.yaml - Balanced production configuration
+	•	features.no-media.yaml - All features except media processing (GDPR-friendly)
+
+Key Features (Configurable)
+	•	Receipts: Per-user delivery/read tracking for group conversations
+	•	Inbox: Offline message queue for delayed delivery
+	•	Scheduled Delivery: "Send later" functionality
+	•	Media Processing: Image optimization pipeline
+	•	File Operations: File compaction and processing
+	•	PubSub: Real-time WebSocket broadcasts
+
+Each feature can be independently enabled/disabled and configured with different storage backends (Postgres, Redis, S3, local, or disabled). See docs/FEATURE_FLAGS.md for validation rules and deployment scenarios.
+
+⸻
+
 Core Features
 
 1) Messaging lifecycle & receipts
@@ -225,6 +252,7 @@ DATABASE_URL=postgres://user:pass@localhost:5432/messaging
 POOL_SIZE=20
 SECRET_KEY_BASE=…               # Phoenix endpoint
 PORT=4000
+FEATURES_CONFIG=config/features.yaml  # Optional: path to feature configuration
 
 Install & run
 

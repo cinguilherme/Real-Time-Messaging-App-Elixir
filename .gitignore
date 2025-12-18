@@ -55,3 +55,9 @@ node_modules/
 *.swo
 *~
 .DS_Store
+
+# Local feature configuration overrides
+config/features.local.yaml
+
+# Local storage directory
+/priv/storage/

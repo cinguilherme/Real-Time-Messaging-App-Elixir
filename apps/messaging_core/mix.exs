@@ -28,7 +28,12 @@ defmodule MessagingCore.MixProject do
     [
       {:ecto_sql, "~> 3.10"},
       {:postgrex, "~> 0.17"},
-      {:jason, "~> 1.4"}
+      {:jason, "~> 1.4"},
+      {:yaml_elixir, "~> 2.9"},
+      {:ex_aws, "~> 2.5"},
+      {:ex_aws_s3, "~> 2.4"},
+      {:hackney, "~> 1.18"},
+      {:sweet_xml, "~> 0.7"}
     ]
   end
 end
