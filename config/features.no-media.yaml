@@ -1,0 +1,28 @@
+# No-Media Feature Configuration
+# All messaging features enabled, but no media processing.
+# Useful for GDPR-sensitive deployments or text-only messaging.
+
+features:
+  receipts: true              # Per-user tracking enabled
+  inbox: true                 # Offline queue enabled
+  scheduled_delivery: true    # Scheduling enabled
+  media: false                # Media processing disabled
+  file_ops: true              # File operations still enabled
+  pubsub: true                # Real-time broadcasts enabled
+
+storage:
+  messages: postgres
+  receipts: postgres
+  inbox: postgres
+  history: postgres
+  blobs: none                 # No blob storage needed
+
+scaling:
+  mode: single_node
+  job_isolation: false
+
+jobs:
+  deliver_realtime: 50
+  scheduled_delivery: 5
+  files: 4
+  heavy_io: 0                 # No heavy I/O processing

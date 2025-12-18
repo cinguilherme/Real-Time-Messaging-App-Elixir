@@ -1,0 +1,28 @@
+# Standard Feature Configuration
+# All features enabled with balanced resource allocation.
+# This is the recommended production configuration.
+
+features:
+  receipts: true              # Per-user delivery/read tracking
+  inbox: true                 # Offline message queue
+  scheduled_delivery: true    # "Send later" functionality
+  media: true                 # Image optimization
+  file_ops: true              # File compaction
+  pubsub: true                # Real-time broadcasts
+
+storage:
+  messages: postgres
+  receipts: postgres
+  inbox: postgres
+  history: postgres
+  blobs: s3
+
+scaling:
+  mode: single_node
+  job_isolation: false
+
+jobs:
+  deliver_realtime: 50
+  scheduled_delivery: 5
+  files: 4
+  heavy_io: 2

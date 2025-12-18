@@ -1,0 +1,28 @@
+# Minimal Feature Configuration
+# Only core messaging functionality, no optional features.
+# Use this for lightweight deployments or testing.
+
+features:
+  receipts: false             # Disabled - no per-user tracking
+  inbox: false                # Disabled - no offline queue
+  scheduled_delivery: false   # Disabled - immediate delivery only
+  media: false                # Disabled - no media processing
+  file_ops: false             # Disabled - no file operations
+  pubsub: true                # Enabled - needed for real-time delivery
+
+storage:
+  messages: postgres          # Core message storage required
+  receipts: none              # Not needed when receipts disabled
+  inbox: none                 # Not needed when inbox disabled
+  history: none               # No history queries
+  blobs: none                 # Not needed when media disabled
+
+scaling:
+  mode: single_node
+  job_isolation: false
+
+jobs:
+  deliver_realtime: 50        # Only real-time delivery enabled
+  scheduled_delivery: 0       # Disabled
+  files: 0                    # Disabled
+  heavy_io: 0                 # Disabled

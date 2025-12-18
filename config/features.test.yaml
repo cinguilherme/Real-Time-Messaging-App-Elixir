@@ -1,0 +1,27 @@
+# Test Environment Configuration
+# All features enabled but with minimal concurrency for faster tests.
+
+features:
+  receipts: true
+  inbox: true
+  scheduled_delivery: true
+  media: true
+  file_ops: true
+  pubsub: true
+
+storage:
+  messages: postgres
+  receipts: postgres
+  inbox: postgres
+  history: postgres
+  blobs: local                # Use local storage for tests (faster)
+
+scaling:
+  mode: single_node
+  job_isolation: false
+
+jobs:
+  deliver_realtime: 1         # Minimal concurrency for tests
+  scheduled_delivery: 1
+  files: 1
+  heavy_io: 1

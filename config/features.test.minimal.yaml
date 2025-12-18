@@ -1,0 +1,27 @@
+# Minimal Test Configuration
+# Only essential features for fast unit tests.
+
+features:
+  receipts: false
+  inbox: false
+  scheduled_delivery: false
+  media: false
+  file_ops: false
+  pubsub: false               # Even PubSub disabled for unit tests
+
+storage:
+  messages: postgres
+  receipts: none
+  inbox: none
+  history: none
+  blobs: none
+
+scaling:
+  mode: single_node
+  job_isolation: false
+
+jobs:
+  deliver_realtime: 1
+  scheduled_delivery: 0
+  files: 0
+  heavy_io: 0

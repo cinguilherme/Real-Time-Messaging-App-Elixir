@@ -6,6 +6,11 @@ import Config
 # and secrets from environment variables or elsewhere. Do not define
 # any compile-time configuration in here, as it won't be applied.
 
+# Configure feature flags path
+# Can be overridden via FEATURES_CONFIG environment variable
+config :messaging_core,
+  features_config_path: System.get_env("FEATURES_CONFIG", "config/features.yaml")
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
@@ -48,16 +53,20 @@ if config_env() == :prod do
     secret_key_base: secret_key_base
 
   # Configure Oban for production
+  # Note: Queue configuration is now managed by feature flags (features.yaml)
+  # The JobProcessor.Application will build the queue config dynamically
   config :job_processor, Oban,
     repo: Messaging.Repo,
-    queues: [
-      deliver_realtime: String.to_integer(System.get_env("OBAN_DELIVER_REALTIME_CONCURRENCY") || "50"),
-      scheduled_delivery: String.to_integer(System.get_env("OBAN_SCHEDULED_DELIVERY_CONCURRENCY") || "5"),
-      files: String.to_integer(System.get_env("OBAN_FILES_CONCURRENCY") || "4"),
-      heavy_io: String.to_integer(System.get_env("OBAN_HEAVY_IO_CONCURRENCY") || "2")
-    ],
+    queues: [],  # Will be populated dynamically from features.yaml
     plugins: [
       Oban.Plugins.Pruner,
       Oban.Plugins.Lifeline
     ]
+
+  # Configure S3 storage if using blob storage
+  config :messaging_core,
+    s3_bucket: System.get_env("S3_BUCKET"),
+    s3_region: System.get_env("S3_REGION", "us-east-1"),
+    local_storage_dir: System.get_env("LOCAL_STORAGE_DIR", "priv/storage"),
+    local_storage_url: System.get_env("LOCAL_STORAGE_URL", "http://localhost:4000/storage")
 end

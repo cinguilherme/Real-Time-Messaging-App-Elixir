@@ -1,0 +1,27 @@
+# Feature Configuration for Real-Time Messaging System
+# This file controls which features are enabled and how they are configured.
+
+features:
+  receipts: true              # Per-user delivery/read tracking for group conversations
+  inbox: true                 # Offline message queue for delivery when users reconnect
+  scheduled_delivery: true    # "Send later" functionality for scheduled messages
+  media: true                 # Image optimization and media processing pipeline
+  file_ops: true              # File compaction and other file operations
+  pubsub: true                # Real-time WebSocket broadcasts for delivery notifications
+
+storage:
+  messages: postgres          # [postgres, memory] - Core message persistence
+  receipts: postgres          # [postgres, none] - Receipt tracking storage
+  inbox: postgres             # [postgres, redis, none] - Inbox queue storage
+  history: postgres           # [postgres, none] - Message history queries
+  blobs: s3                   # [s3, local, none] - Media/file storage backend
+
+scaling:
+  mode: single_node           # [single_node, multi_node] - Deployment topology
+  job_isolation: false        # Run job processors in separate VM (true/false)
+
+jobs:
+  deliver_realtime: 50        # Concurrency for real-time message delivery queue
+  scheduled_delivery: 5       # Concurrency for scheduled message delivery queue
+  files: 4                    # Concurrency for file operations queue
+  heavy_io: 2                 # Concurrency for CPU/IO intensive operations (image processing)
