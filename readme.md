@@ -292,16 +292,39 @@ Example metrics (names are suggestions):
 
 Deployment
 
-Mix Releases
+This project provides multiple deployment options to fit different needs:
+
+📦 Docker Compose (Recommended for Quick Start)
+	•	Complete production-ready setup with all services
+	•	Single VM deployment with Docker and Docker Compose
+	•	Setup time: 15-30 minutes
+	•	⚡ Quick Start: QUICKSTART_DOCKER.md (15 minutes!)
+	•	📖 Full Guide: DOCKER_DEPLOYMENT.md
+	•	🚀 Deploy Script: ./quick-deploy.sh
+
+🖥️  Bare Metal VM
+	•	Maximum performance with no container overhead
+	•	Traditional deployment on Ubuntu/Debian/RHEL
+	•	Setup time: 1-2 hours
+	•	📖 Guide: SETUP-VM.MD
+	•	🤖 Automated: prepare-vm.sh
+
+☁️  AWS Quick Start
+	•	Automated EC2 instance preparation
+	•	AWS-optimized configuration
+	•	Setup time: 20-30 minutes
+	•	📖 Guide: AWS_DEPLOYMENT_QUICKSTART.md
+
+📋 Compare Options
+	•	See DEPLOYMENT_OPTIONS.md for detailed comparison of all deployment methods
+	•	Includes feature support matrix, cost comparison, and scaling considerations
+
+Mix Releases (Advanced)
 	•	Build one umbrella release or split by app.
 	•	Configure API node and Job node with different OBAN_QUEUES/env if you want isolation.
+	•	Production Dockerfile included for building optimized releases
 
-Docker (example outline)
-	•	Multi‑stage build: mix release → small runtime image.
-	•	Separate images: messaging-api and job-processor.
-	•	Healthchecks: /healthz for API; Oban DB connectivity check for job node.
-
-Kubernetes (optional)
+Kubernetes (Advanced)
 	•	Two Deployments: api and jobs (different resources/limits).
 	•	HPA on API; fixed/low concurrency on heavy_io to cap CPU.
 	•	Postgres as managed service (RDS/CloudSQL) or stable in‑cluster operator.

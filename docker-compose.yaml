@@ -40,29 +40,24 @@ services:
 
   s3_minio:
     image: minio/minio:latest
+    command: server /data --console-address ":9001"
     ports:
       - 9000:9000
+      - 9001:9001
     volumes:
       - s3_data:/data
     environment:
-      MINIO_ACCESS_KEY: minioadmin
-      MINIO_SECRET_KEY: minioadmin
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
 
   memcached:
     image: memcached:latest
     ports:
       - 11211:11211
-    volumes:
-      - memcached_data:/data
-    environment:
-      MEMCACHED_MAX_ITEM_SIZE: 1024
-      MEMCACHED_MAX_CONNECTIONS: 1024
-      MEMCACHED_MAX_CONNECTIONS_PER_CLIENT: 1024
-      MEMCACHED_MAX_CONNECTIONS_PER_SERVER: 1024
+    command: memcached -m 64
 
 
 volumes:
   postgres_data:
   redis_data:
   s3_data:
-  memcached_data:

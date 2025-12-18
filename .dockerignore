@@ -1,0 +1,78 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Build artifacts
+_build/
+deps/
+*.beam
+*.ez
+
+# Development files
+.elixir_ls/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+docs/
+DEPLOYMENT_CHECKLIST.md
+DEPLOYMENT_README.md
+AWS_DEPLOYMENT_QUICKSTART.md
+SETUP-VM.MD
+DOCKER_DEPLOYMENT.md
+API_TESTING_GUIDE.md
+readme.md
+SETUP.md
+
+# Test files
+test/
+*_test.exs
+test_helper.exs
+test_conversation.sh
+QUICK_TEST.md
+VERIFICATION_REPORT.md
+CONVERSATION_TEST_RESULTS.md
+STARTUP_SUCCESS.md
+
+# Docker files (we don't need these inside the container)
+docker-compose.yaml
+docker-compose.prod.yaml
+Dockerfile
+.dockerignore
+.env
+.env.example
+
+# Scripts
+prepare-vm.sh
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Coverage
+cover/
+*.coverdata
+
+# Local storage (development)
+priv/storage/*
+
+# Node modules (if any)
+node_modules/
+npm-debug.log
+
+# Mix lock - we want this actually
+# mix.lock
