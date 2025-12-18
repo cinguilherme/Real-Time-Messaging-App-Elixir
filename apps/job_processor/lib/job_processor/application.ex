@@ -21,9 +21,9 @@ defmodule JobProcessor.Application do
   defp build_children(config) do
     [
       # Start Oban only if any job queues are configured
-      if needs_oban?(config) do
+      (if needs_oban?(config) do
         {Oban, build_oban_config(config)}
-      end
+      end)
     ]
     |> Enum.reject(&is_nil/1)
   end

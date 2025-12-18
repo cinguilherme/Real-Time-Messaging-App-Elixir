@@ -89,7 +89,7 @@ defmodule MessagingCore.Application do
   defp build_children(config) do
     [
       # Always start Repo if any postgres storage is used
-      if uses_postgres?(config), do: Messaging.Repo
+      if(uses_postgres?(config), do: Messaging.Repo)
     ]
     |> Enum.reject(&is_nil/1)
   end

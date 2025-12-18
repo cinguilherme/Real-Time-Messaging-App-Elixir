@@ -21,9 +21,9 @@ defmodule MessagingApi.Application do
   defp build_children(config) do
     [
       # PubSub only if enabled
-      if config.features.pubsub do
+      (if config.features.pubsub do
         {Phoenix.PubSub, name: MessagingApi.PubSub}
-      end,
+      end),
       # Always start Telemetry
       MessagingApi.Telemetry,
       # Always start the Endpoint

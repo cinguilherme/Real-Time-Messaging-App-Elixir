@@ -1,24 +1,24 @@
 ### Docker Compose File for the project messaging-api-oban dependencies
 
 services:
-  app:
-    build: .
-    ports:
-      - "4000:4000"
-    environment:
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/messaging
-      - SECRET_KEY_BASE=your_secret_key_base_here
-      - PORT=4000
-      - FEATURES_CONFIG=/etc/app/features.yaml
-      - S3_BUCKET=messaging-blobs
-      - S3_REGION=us-east-1
-    volumes:
-      - ./config/features.yaml:/etc/app/features.yaml:ro
-      - ./priv/storage:/app/priv/storage
-    depends_on:
-      - postgres
-      - redis
-      - s3_minio
+  # app:
+  #   build: .
+  #   ports:
+  #     - "4000:4000"
+  #   environment:
+  #     - DATABASE_URL=postgres://postgres:postgres@postgres:5432/messaging
+  #     - SECRET_KEY_BASE=your_secret_key_base_here
+  #     - PORT=4000
+  #     - FEATURES_CONFIG=/etc/app/features.yaml
+  #     - S3_BUCKET=messaging-blobs
+  #     - S3_REGION=us-east-1
+  #   volumes:
+  #     - ./config/features.yaml:/etc/app/features.yaml:ro
+  #     - ./priv/storage:/app/priv/storage
+  #   depends_on:
+  #     - postgres
+  #     - redis
+  #     - s3_minio
 
   postgres:
     image: postgres:14
@@ -64,3 +64,5 @@ services:
 volumes:
   postgres_data:
   redis_data:
+  s3_data:
+  memcached_data:
